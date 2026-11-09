@@ -7,6 +7,14 @@ base {
 	archivesName = 'seedgen-postprocess-fix-neoforge'
 }
 
+// NeoForge 1.20.1 reads mixin configs from the manifest; newer versions read
+// [[mixins]] from neoforge.mods.toml. Ship both.
+jar {
+	manifest {
+		attributes 'MixinConfigs': 'seedgen-postprocess-fix.mixins.json'
+	}
+}
+
 neoForge {
 	version = project.neo_version
 

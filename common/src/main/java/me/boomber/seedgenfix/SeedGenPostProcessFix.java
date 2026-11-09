@@ -25,7 +25,18 @@ public final class SeedGenPostProcessFix {
 
 	private static final String MESSAGE = "Trying to mark a block for post processing";
 
+	private static final boolean SKIP_FEATURE_PAINTING = !"false".equalsIgnoreCase(
+			System.getProperty("seedgenfix.skipFeaturePainting", "true"));
+
 	private SeedGenPostProcessFix() {
+	}
+
+	/**
+	 * Whether to skip SeedGen's ground-feature painting (the expensive part
+	 * behind its "trees" option). Defaults to true.
+	 */
+	public static boolean skipFeaturePainting() {
+		return SKIP_FEATURE_PAINTING;
 	}
 
 	public static void init() {

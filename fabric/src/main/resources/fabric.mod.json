@@ -9,6 +9,9 @@
 	],
 	"license": "MIT",
 	"environment": "*",
+	"mixins": [
+		"seedgen-postprocess-fix.mixins.json"
+	],
 	"entrypoints": {
 		"main": [
 			"me.boomber.seedgenfix.fabric.FabricEntrypoint"

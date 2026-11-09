@@ -28,3 +28,6 @@ type="optional"
 versionRange="*"
 ordering="NONE"
 side="BOTH"
+
+[[mixins]]
+config="seedgen-postprocess-fix.mixins.json"

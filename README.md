@@ -29,6 +29,24 @@ untouched.
 Because the patch never references a Minecraft class, **one build works on
 every supported Minecraft version and on both loaders**.
 
+## Performance (SeedGen's "Trees" option)
+
+SeedGen's single **Trees** option also switches on a second, expensive job: it
+paints every ground-painting placed feature (clay disks, vegetation patches,
+modded ground features) for each chunk, through a reflective in-memory world.
+With a modded worldgen pack such as WWOO that is hundreds of features in total,
+and LOD generation crawls.
+
+This mod keeps the tree canopies and skips that ground-feature painting, which
+is the slow part. Distant LODs lose the painted ground brush (disks and
+patches); trees, terrain, water and structures are unchanged.
+
+To restore SeedGen's original behaviour, add this JVM argument:
+
+```text
+-Dseedgenfix.skipFeaturePainting=false
+```
+
 ## Supported versions
 
 - Minecraft: **1.20.1 – 26.3**
@@ -53,8 +71,9 @@ leave installed.
 
 ## Notes
 
-- SeedGen itself still places the disks; this removes the log I/O (and the
-  long lock hold that came with it). It does not change world generation.
+- SeedGen still places its disks; this removes the log I/O (and the long lock
+  hold that came with it) and, by default, skips the expensive LOD
+  ground-feature painting. It does not change real world generation.
 - If you would rather cancel the method than filter the message, the Mixin
   equivalent is a few lines, but it must be built per loader and per Minecraft
   version because Fabric remaps to intermediary while NeoForge uses official
