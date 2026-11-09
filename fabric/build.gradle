@@ -13,10 +13,12 @@ dependencies {
 
 sourceSets.main.java.srcDir rootProject.file('common/src/main/java')
 
+def modVersion = project.version.toString()
+
 processResources {
-	inputs.property 'version', project.version
+	inputs.property 'version', modVersion
 	filesMatching('fabric.mod.json') {
-		expand 'version': project.version
+		expand 'version': modVersion
 	}
 }
 
