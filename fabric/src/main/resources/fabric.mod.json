@@ -1,0 +1,25 @@
+{
+	"schemaVersion": 1,
+	"id": "seedgen_postprocess_fix",
+	"version": "${version}",
+	"name": "SeedGen Post-Processing Fix",
+	"description": "Silences the vanilla ChunkAccess unsupported post-processing warning triggered by SeedGen's stand-in chunks.",
+	"authors": [
+		"oOBoomberOo"
+	],
+	"license": "MIT",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"me.boomber.seedgenfix.fabric.FabricEntrypoint"
+		]
+	},
+	"depends": {
+		"fabricloader": ">=0.15.0",
+		"minecraft": ">=1.20.1 <26.4",
+		"java": ">=17"
+	},
+	"suggests": {
+		"seedrenderer": "*"
+	}
+}

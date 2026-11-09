@@ -1,0 +1,10 @@
+plugins {
+	id 'base'
+}
+
+allprojects {
+	group = project.group
+	version = project.mod_version
+}
+
+

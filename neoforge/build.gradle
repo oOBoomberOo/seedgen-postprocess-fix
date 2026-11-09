@@ -1,0 +1,45 @@
+plugins {
+	id 'java'
+	id 'net.neoforged.moddev' version "${moddev_version}"
+}
+
+base {
+	archivesName = 'seedgen-postprocess-fix-neoforge'
+}
+
+neoForge {
+	version = project.neo_version
+
+	mods {
+		seedgen_postprocess_fix {
+			sourceSet sourceSets.main
+		}
+	}
+}
+
+sourceSets.main.java.srcDir rootProject.file('common/src/main/java')
+
+processResources {
+	inputs.property 'version', project.version
+	filesMatching(['META-INF/mods.toml', 'META-INF/neoforge.mods.toml']) {
+		expand 'version': project.version
+	}
+}
+
+def javaRelease = (project.findProperty('java_release') ?: '17').toInteger()
+
+// NeoForge 26.x publishes Java 25-only dependency variants, and Gradle derives
+// the consumer JVM attribute from options.release. Pin the attribute to 25 so
+// dependencies resolve, but emit Java 17 bytecode so the jar also loads on
+// 1.20.1 (Java 17) and 1.21.x (Java 21).
+configurations.configureEach { conf ->
+	if (conf.canBeResolved || conf.canBeConsumed) {
+		conf.attributes {
+			attribute(org.gradle.api.attributes.java.TargetJvmVersion.TARGET_JVM_VERSION_ATTRIBUTE, 25)
+		}
+	}
+}
+
+tasks.withType(JavaCompile).configureEach {
+	it.options.release = javaRelease
+}

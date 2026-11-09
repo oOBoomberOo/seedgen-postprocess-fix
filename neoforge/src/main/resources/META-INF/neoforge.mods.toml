@@ -1,0 +1,30 @@
+modLoader="javafml"
+loaderVersion="[1,)"
+license="MIT"
+
+[[mods]]
+modId="seedgen_postprocess_fix"
+version="${version}"
+displayName="SeedGen Post-Processing Fix"
+description='''Silences the vanilla ChunkAccess "Trying to mark a block for post processing" warning triggered by SeedGen's stand-in chunks. The base method only logs; real chunks override it, so no functionality is lost.'''
+
+[[dependencies.seedgen_postprocess_fix]]
+modId="neoforge"
+type="required"
+versionRange="[1,)"
+ordering="NONE"
+side="BOTH"
+
+[[dependencies.seedgen_postprocess_fix]]
+modId="minecraft"
+type="required"
+versionRange="[1.20.1,26.4)"
+ordering="NONE"
+side="BOTH"
+
+[[dependencies.seedgen_postprocess_fix]]
+modId="seedrenderer"
+type="optional"
+versionRange="*"
+ordering="NONE"
+side="BOTH"

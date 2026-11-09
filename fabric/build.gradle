@@ -1,0 +1,32 @@
+plugins {
+	id 'net.fabricmc.fabric-loom' version "${loom_version}"
+}
+
+base {
+	archivesName = 'seedgen-postprocess-fix-fabric'
+}
+
+dependencies {
+	minecraft "com.mojang:minecraft:${minecraft_version}"
+	implementation "net.fabricmc:fabric-loader:${fabric_loader_version}"
+}
+
+sourceSets.main.java.srcDir rootProject.file('common/src/main/java')
+
+processResources {
+	inputs.property 'version', project.version
+	filesMatching('fabric.mod.json') {
+		expand 'version': project.version
+	}
+}
+
+def javaRelease = (project.findProperty('java_release') ?: '25').toInteger()
+
+tasks.withType(JavaCompile).configureEach {
+	it.options.release = javaRelease
+}
+
+java {
+	sourceCompatibility = JavaVersion.toVersion(javaRelease)
+	targetCompatibility = JavaVersion.toVersion(javaRelease)
+}
